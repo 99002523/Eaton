@@ -1,0 +1,38 @@
+import openpyxl
+
+def midpoint(lis):
+        a=((lis[0]+lis[2])/2)
+        b=((lis[1]+lis[3])/2)+100
+        #z=z+str(count)
+        return [a,b]
+    
+def xpath(action):
+    from openpyxl import load_workbook
+    col1=col2=col3=row1=row2=row3=0
+    workbook = load_workbook(filename=r"D:\\Eaton\\variables\\textextraction.xlsx")
+    sheet=workbook.active
+    for row in sheet.iter_rows(min_row=1,max_row=1):
+        for cell in row:
+            if cell.value == "TEXT":
+                col1=cell.column
+                row1=cell.row
+                #print(row1)
+                #print(col1)
+            if cell.value == "COORDINATES":
+                col2=cell.column
+                row2=cell.row
+                #print(row2)
+                #print(col2)
+    #print(action)
+    rows=sheet.max_row
+    #print(rows)
+    val=[None,None]
+    for i in range(1,rows+1):
+        value=sheet.cell(row=i,column=col1).value 
+        if value==action:
+            coordinates=sheet.cell(row=i,column=col2).value 
+    return coordinates
+
+#uncomment this to check how this function is working
+a=xpath("LOG IN")
+print(a)
